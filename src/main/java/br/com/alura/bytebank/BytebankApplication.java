@@ -38,7 +38,7 @@ public class BytebankApplication {
                 }
             } catch (RegraDeNegocioException e) {
                 System.out.println("Erro: " +e.getMessage());
-                System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
+                System.out.println("\nPressione qualquer tecla e de ENTER para voltar ao menu");
                 teclado.next();
             }
             opcao = exibirMenu();
@@ -66,7 +66,7 @@ public class BytebankApplication {
         var contas = service.listarContasAbertas();
         contas.forEach(System.out::println);
 
-        System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
+        System.out.println("\nPressione qualquer tecla e de ENTER para voltar ao menu principal");
         teclado.next();
     }
 
@@ -86,7 +86,7 @@ public class BytebankApplication {
         service.abrir(new DadosAberturaConta(numeroDaConta, new DadosCadastroCliente(nome, cpf, email)));
 
         System.out.println("Conta aberta com sucesso!");
-        System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
+        System.out.println("\nPressione qualquer tecla e de ENTER para voltar ao menu principal");
         teclado.next();
     }
 
@@ -97,7 +97,7 @@ public class BytebankApplication {
         service.encerrar(numeroDaConta);
 
         System.out.println("Conta encerrada com sucesso!");
-        System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
+        System.out.println("\nPressione qualquer tecla e de ENTER para voltar ao menu principal");
         teclado.next();
     }
 
@@ -107,7 +107,7 @@ public class BytebankApplication {
         var saldo = service.consultarSaldo(numeroDaConta);
         System.out.println("Saldo da conta: " +saldo);
 
-        System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
+        System.out.println("\nPressione qualquer tecla e de ENTER para voltar ao menu principal");
         teclado.next();
     }
 
@@ -120,7 +120,7 @@ public class BytebankApplication {
 
         service.realizarSaque(numeroDaConta, valor);
         System.out.println("Saque realizado com sucesso!");
-        System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
+        System.out.println("\nPressione qualquer tecla e de ENTER para voltar ao menu principal");
         teclado.next();
     }
 
@@ -134,7 +134,7 @@ public class BytebankApplication {
         service.realizarDeposito(numeroDaConta, valor);
 
         System.out.println("Depósito realizado com sucesso!");
-        System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
+        System.out.println("\nPressione qualquer tecla e de ENTER para voltar ao menu principal");
         teclado.next();
     }
 }

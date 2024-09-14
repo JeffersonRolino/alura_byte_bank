@@ -19,7 +19,7 @@ public class ContaDAO {
         this.connection = connection;
     }
 
-    public void save(DadosAberturaConta dadosDaConta) {
+    public void salvar(DadosAberturaConta dadosDaConta) {
         var cliente = new Cliente(dadosDaConta.dadosCliente());
         var conta = new Conta(dadosDaConta.numero(), cliente);
 
@@ -43,7 +43,7 @@ public class ContaDAO {
         }
     }
 
-    public Set<Conta> list() {
+    public Set<Conta> listar() {
         Set<Conta> contas = new HashSet<>();
 
         String sql = "SELECT * FROM conta";
