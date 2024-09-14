@@ -32,32 +32,8 @@ public class ContaService {
     }
 
     public void abrir(DadosAberturaConta dadosDaConta) {
-        var cliente = new Cliente(dadosDaConta.dadosCliente());
-        var conta = new Conta(dadosDaConta.numero(), cliente);
-        if (contas.contains(conta)) {
-            throw new RegraDeNegocioException("Já existe outra conta aberta com o mesmo número!");
-        }
-
-        String sql = "INSERT INTO conta (numero, saldo, cliente_nome, cliente_cpf, cliente_email)" +
-                "VALUES (?, ?, ?, ?, ?)";
-
         Connection connection = connectionFactory.recuperarConexao();
-
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, conta.getNumero());
-            preparedStatement.setBigDecimal(2, BigDecimal.ZERO);
-            preparedStatement.setString(3, cliente.getNome());
-            preparedStatement.setString(4, cliente.getCpf());
-            preparedStatement.setString(5, cliente.getEmail());
-
-            preparedStatement.execute();
-            preparedStatement.close();
-            connection.close();
-
-        } catch (SQLException exception){
-            throw new RuntimeException(exception);
-        }
+        new ContaDAO(connection).save(dadosDaConta);
     }
 
     public void realizarSaque(Integer numeroDaConta, BigDecimal valor) {
