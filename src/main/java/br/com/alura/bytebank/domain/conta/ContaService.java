@@ -9,17 +9,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class ContaService {
 
-    private ConnectionFactory connectionFactory;
+    private final ConnectionFactory connectionFactory;
 
     public ContaService() {
         this.connectionFactory = new ConnectionFactory();
     }
 
-    private Set<Conta> contas = new HashSet<>();
+    private final Set<Conta> contas = new HashSet<>();
 
     public Set<Conta> listarContasAbertas() {
         return contas;
@@ -51,6 +52,8 @@ public class ContaService {
             preparedStatement.setString(5, cliente.getEmail());
 
             preparedStatement.execute();
+            preparedStatement.close();
+            connection.close();
 
         } catch (SQLException exception){
             throw new RuntimeException(exception);
@@ -91,7 +94,7 @@ public class ContaService {
     private Conta buscarContaPorNumero(Integer numero) {
         return contas
                 .stream()
-                .filter(c -> c.getNumero() == numero)
+                .filter(c -> Objects.equals(c.getNumero(), numero))
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Não existe conta cadastrada com esse número!"));
     }

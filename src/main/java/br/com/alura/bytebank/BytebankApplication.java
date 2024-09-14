@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class BytebankApplication {
 
-    private static ContaService service = new ContaService();
-    private static Scanner teclado = new Scanner(System.in).useDelimiter("\n");
+    private static final ContaService service = new ContaService();
+    private static final Scanner teclado = new Scanner(System.in).useDelimiter("\n");
 
     public static void main(String[] args) {
         var opcao = exibirMenu();
@@ -64,7 +64,7 @@ public class BytebankApplication {
     private static void listarContas() {
         System.out.println("Contas cadastradas:");
         var contas = service.listarContasAbertas();
-        contas.stream().forEach(System.out::println);
+        contas.forEach(System.out::println);
 
         System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
         teclado.next();
