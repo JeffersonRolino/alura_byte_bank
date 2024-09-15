@@ -66,10 +66,14 @@ public class ContaService {
     }
 
     private Conta buscarContaPorNumero(Integer numero) {
-        return contas
-                .stream()
-                .filter(c -> Objects.equals(c.getNumero(), numero))
-                .findFirst()
-                .orElseThrow(() -> new RegraDeNegocioException("Não existe conta cadastrada com esse número!"));
+        Connection connection = connectionFactory.recuperarConexao();
+        Conta conta = new ContaDAO(connection).listarContaPorNumero(numero);
+
+        if(conta != null){
+            return conta;
+        }
+        else {
+            throw new RegraDeNegocioException("Não existe conta cadastrada com esse número!");
+        }
     }
 }
