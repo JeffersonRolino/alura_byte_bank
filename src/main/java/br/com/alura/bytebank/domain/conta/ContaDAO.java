@@ -142,22 +142,6 @@ public class ContaDAO {
         }
     }
 
-    public void sacar(Integer numeroDaConta, BigDecimal valorDoSaque){
-        String sql = "UPDATE conta SET saldo = ? WHERE numero = ?";
-
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setBigDecimal(1, valorDoSaque);
-            preparedStatement.setInt(2, numeroDaConta);
-
-            preparedStatement.execute();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public void deletar(Integer numeroDaConta){
         String sql = "DELETE FROM conta WHERE numero = ?";
 
