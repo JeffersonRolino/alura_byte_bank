@@ -117,15 +117,24 @@ public class ContaDAO {
         String sql = "UPDATE conta SET saldo = ? WHERE numero = ?";
 
         try {
+            connection.setAutoCommit(false);
+
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setBigDecimal(1, valorDoDeposito);
             preparedStatement.setInt(2, numeroDaConta);
 
             preparedStatement.execute();
+            connection.commit();
+
             preparedStatement.close();
             connection.close();
 
         } catch (SQLException e) {
+            try{
+                connection.rollback();
+            } catch (SQLException exception){
+                throw new RuntimeException(exception);
+            }
             throw new RuntimeException(e);
         }
     }
